@@ -4,6 +4,7 @@ import styled from "styled-components"
 
 export const ProfileCardContainer = styled.div`
   display: flex;
+  background-color: red;
   gap: 2rem;
   background-color: ${props => props.theme.post};
   padding: 2rem 3rem;
@@ -25,6 +26,7 @@ export const ProfileCardContainer = styled.div`
 `
 
 export const ProfileInfoContainer = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
