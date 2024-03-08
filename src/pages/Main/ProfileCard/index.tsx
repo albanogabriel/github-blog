@@ -51,7 +51,12 @@ export function ProfileCard() {
                   <div>
                     <ProfileTitle>
                       <h1>{user.name}</h1>
-                      <a href="">GITHUB</a>
+                      <a 
+                        href="https://github.com/albanogabriel"
+                        target="_blank"
+                        >
+                          GITHUB
+                      </a>
                     </ProfileTitle>
                     
                     <p>{user.bio ? (user.bio) : (<p>This user doesn't have a bio but should have </p>)}</p>
