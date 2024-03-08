@@ -4,6 +4,7 @@ export const SearchFormContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  margin: 8px;
 
   div {
     display: flex;

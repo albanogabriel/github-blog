@@ -1,22 +1,29 @@
-import { PostCard, PostCardContainer } from "./styles";
+import { PostCard, StyledLink } from "./styles";
 
-export function Posts() {
+import { dateFormatter, relativeDateFormatter } from '../../../../../utils/formatter'
+import { Issue } from "../../../../../contexts/issuesContext";
+
+interface PostsProps {
+  data: Issue
+}
+
+export function Post({ data }: PostsProps) {
+  const formattedDate = relativeDateFormatter(data.created_at)
+
   return(
-    <PostCardContainer>
-      <PostCard>
-        <div>
-          <h2>JavaScript Datatypes</h2>
-          <time>Há 1 dia</time>
-        </div>
-        <p>Lorem ipsum Lorem Ipsum Lorem IpsumLorem Ipsum</p>
-      </PostCard>
-      <PostCard>
-        <div>
-          <h2>JavaScript Datatypes</h2>
-          <time>Há 1 dia</time>
-        </div>
-        <p>Lorem ipsum Lorem Ipsum Lorem IpsumLorem Ipsum</p>
-      </PostCard>
-    </PostCardContainer>
+      <StyledLink to={`/post/${data.number}`} >
+        <PostCard>
+          <header>
+            <h2>{data.title}</h2>
+            <span>{data && dateFormatter.format(new Date(data.created_at))}</span>
+          </header>
+
+          <p>{data.body}</p>
+          
+          <footer>
+            <span>Postado <span>{formattedDate}</span></span>
+          </footer>
+        </PostCard>
+      </StyledLink>
   )
 }

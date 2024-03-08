@@ -3,115 +3,86 @@ import { faGithub } from '@fortawesome/free-brands-svg-icons'
 import { faBuilding, faUserGroup } from '@fortawesome/free-solid-svg-icons'
 
 import { ProfileInfoContainer, ProfileTitle, NavSocialMedia, ProfileCardContainer } from './styles'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
+import { api } from '../../../lib/axios'
+import { Spinner } from '../../../components/Spinner'
 
-interface userDataType {
+const username = import.meta.env.VITE_GITHUB_USERNAME
+
+interface ProfileData {
   id: number
   login: string
+  name: string
+  bio: string
+  html_url: string
   avatar_url: string
-  company: string
+  company?: string
   followers: number
 }
 
 export function ProfileCard() {
-  const [user, setUser] = useState<userDataType | null >(null)
+  const [user, setUser] = useState<ProfileData>({} as ProfileData)
+  const [isLoading, setIsLoading] = useState(true)
 
-  const loadUser = async() => {
-    const response = await fetch('https://api.github.com/users/albanogabriel')
-    const data = await response.json()
-
-    const { id, login, avatar_url, company, followers } = data
-
-    setUser({
-      id,
-      login,
-      avatar_url,
-      company,
-      followers
-    })
-
-    console.log(data)
-    console.log
-  }
+  const getUserData = useCallback(async () => {
+    try {
+      const response = await api.get(`/users/${username}`)
+      setIsLoading(true)
+      setUser(response.data)
+    } finally {
+      setIsLoading(false)
+    }
+  }, [])
 
   useEffect(() => {
-    loadUser()
-  }, [])
+    getUserData()
+  }, [getUserData])
 
   return (
       <div>
-        {user && 
-            <ProfileCardContainer>
-              <div>
-                <img src={user.avatar_url} alt="" />
-              </div>
-          
-              <ProfileInfoContainer>
+        <ProfileCardContainer>
+          { isLoading ? <Spinner/> : (
+              <>
                 <div>
-                  <ProfileTitle>
-                    <h1>Gabriel Albano da Silva</h1>
-                    <a href="">GITHUB</a>
-                  </ProfileTitle>
-                  
-                  <p>Write a bio in near future</p>
+                  <img src={user.avatar_url} alt="" />
                 </div>
-                
-                <NavSocialMedia>
-                  <span>
-                    <FontAwesomeIcon icon={faGithub} /> 
-                    {user.login}
-                  </span>
+          
+                <ProfileInfoContainer>
+                  <div>
+                    <ProfileTitle>
+                      <h1>{user.name}</h1>
+                      <a href="">GITHUB</a>
+                    </ProfileTitle>
+                    
+                    <p>{user.bio ? (user.bio) : (<p>This user doesn't have a bio but should have </p>)}</p>
+                  </div>
+                  
+                  <NavSocialMedia>
+                    <a 
+                      href={user.html_url}
+                      target='_blank'
+                      >
+                      <FontAwesomeIcon icon={faGithub} /> 
+                      {user.login}
+                    </a>
 
-                  {user.company && 
+                    {user.company && 
+                      <span>
+                        <FontAwesomeIcon icon={faBuilding} /> 
+                        {user.company}
+                      </span>
+                    }
+
                     <span>
-                      <FontAwesomeIcon icon={faBuilding} /> 
-                      albanogabriel
+                      <FontAwesomeIcon icon={faUserGroup} /> 
+                      {user.followers}
                     </span>
-                  }
-
-                  <span>
-                    <FontAwesomeIcon icon={faUserGroup} /> 
-                    {user.followers}
-                  </span>
-                </NavSocialMedia>
-              </ProfileInfoContainer>
-            </ProfileCardContainer>
-        }
+                  </NavSocialMedia>
+                </ProfileInfoContainer>
+              </>
+            )  
+          }
+        </ProfileCardContainer>
       </div>
     )
 }
-
-{/* <div key={userData.id}>
-          <ProfileCardContainer>
-            <div>
-              <img src={userData.avatar_url} alt="" />
-            </div>
-          
-            <ProfileInfoContainer>
-              <div>
-                <ProfileTitle>
-                  <h1>Gabriel Albano da Silva</h1>
-                  <a href="">GITHUB</a>
-                </ProfileTitle>
-                
-                <p>Lorem Lorem ipsum ipsum Lorem Lorem ipsum ipsumLorem Lorem ipsum ipsum</p>
-              </div>
-              
-              <NavSocialMedia>
-                <span>
-                  <FontAwesomeIcon icon={faGithub} /> 
-                  Github
-                </span>
-                <span>
-                  <FontAwesomeIcon icon={faBuilding} /> 
-                  albanogabriel
-                </span>
-                <span>
-                  <FontAwesomeIcon icon={faUserGroup} /> 
-                  Seguidores
-                </span>
-              </NavSocialMedia>
-            </ProfileInfoContainer>
-          </ProfileCardContainer>
-        
-          </div> */}

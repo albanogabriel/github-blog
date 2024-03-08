@@ -7,6 +7,18 @@ export const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
 
+  ::-webkit-scrollbar {
+    width: 0.45rem;
+  }
+
+  /* ::-webkit-scrollbar-track {
+    background: ${({ theme }) => theme.border};
+  } */
+
+  ::-webkit-scrollbar-thumb {
+    background: ${({ theme }) => theme.border};
+  }
+
   :focus {
     outline: 0;
     box-shadow: 0 0 0 2px #a5a5a5 ; // 0 eixo x , 0 eixo y , 0 blur , 2px de Spread
@@ -20,7 +32,10 @@ export const GlobalStyle = createGlobalStyle`
 
   body, input, textarea, button {
     font: 400 1rem Nunito, sans-serif; // font-weight: 400  , font-size: 1rem , font-family: 'Nunito', sans-serif
+    line-height: 1.6;
   }
 
-
+  button {
+    cursor: pointer;
+  }
 `

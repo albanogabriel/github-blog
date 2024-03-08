@@ -12,3 +12,6 @@ references
 
 https://dribbble.com/shots/23086362-Talentum-Blog
 
+help me in the project
+https://www.youtube.com/watch?v=Vn0CbXsUwgQ&ab_channel=GBDev
+
