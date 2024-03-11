@@ -36,12 +36,11 @@ export const PostCard = styled.div`
     span {
       color: ${({ theme }) => theme.span};
       font-size: 14px;
+      margin-left: 16px;
     }
   }
 
-  p {
-    font-size: 16px;
-  }
+  
 
   footer {
     color: ${({ theme }) => theme.span};
@@ -57,4 +56,11 @@ export const PostCard = styled.div`
     border-radius: 8px;
   }
 
+`
+
+export const Subtitle = styled.p`
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden; 
+  -webkit-line-clamp: 3; /* Adjust the number of lines as needed */
 `

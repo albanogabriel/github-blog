@@ -1,10 +1,12 @@
 import { faCalendar, faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { FullPostContainer, FullPostPage, NavSocialMedia, NavigationLinks, TextContainer } from "./styles";
+import { FullPostContainer, FullPostPage, NavSocialMedia, NavigationLinks } from "./styles";
 import { useNavigate } from "react-router-dom";
 import { Issue } from "../../../contexts/issuesContext";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { relativeDateFormatter } from "../../../utils/formatter";
+import { PostContent } from "../components";
+
 
 interface CompleteIssueProps {
   data: Issue
@@ -57,9 +59,9 @@ export function CompleteIssue({ data }: CompleteIssueProps) {
           </NavSocialMedia>
         </header>
       </FullPostContainer>
-      <TextContainer>
-        <p>{data.body}</p>
-      </TextContainer>
+
+      <PostContent content={data.body} />
+
     </FullPostPage>
   )
 }

@@ -1,4 +1,4 @@
-import { PostCard, StyledLink } from "./styles";
+import { PostCard, StyledLink, Subtitle } from "./styles";
 
 import { dateFormatter, relativeDateFormatter } from '../../../../../utils/formatter'
 import { Issue } from "../../../../../contexts/issuesContext";
@@ -18,7 +18,7 @@ export function Post({ data }: PostsProps) {
             <span>{data && dateFormatter.format(new Date(data.created_at))}</span>
           </header>
 
-          <p>{data.body}</p>
+          <Subtitle>{data.body}</Subtitle>
           
           <footer>
             <span>Postado <span>{formattedDate}</span></span>

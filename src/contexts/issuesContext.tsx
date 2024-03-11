@@ -39,7 +39,6 @@ export function IssuesContextProvider({ children }: IssuesContextProviderProps )
       try {
         setIsLoading(true)
         const response = await api.get(`search/issues?q=${query}%20repo:${username}/${repoName}`)
-        console.log(response.data)
         setIssues(response.data.items) //data.items porque é o objeto da requisição
       } catch (error) {
         console.log('error')

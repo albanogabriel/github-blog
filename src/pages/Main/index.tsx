@@ -6,9 +6,9 @@ import { MainContainer } from "./styles";
 export function Main() {
   return (
     <MainContainer>
-      <ProfileCard/>
-      <SearchBar/>
-      <RepositoryPosts/>
+      <ProfileCard />
+      <SearchBar />
+      <RepositoryPosts />
     </MainContainer>
   )
 }
